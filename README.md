@@ -12,7 +12,7 @@
 * ##### 常用工具类
 ![image](http://github-1252100560.cossh.myqcloud.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB.PNG)
 * ##### web.xml文件中配置
-###### 1.在servlet标签下添加拦截器以及springmvc需要加载的配置文件放在init-param标下
+###### 1.在servlet标签下添加拦截器以及springmvc需要加载的配置文件放在init-param标签下
 ###### 2.添加过滤器，过滤参数传递中乱码问题
 ###### 3.配置错误页面，让无法访问的页面可以统一定向到固定页面
 * ##### spring配置文件
