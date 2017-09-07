@@ -42,7 +42,7 @@ target/
 /web-app/WEB-INF/classes
  
 # "temporary" build files
-target/
+
 out/
 build/
  
@@ -90,7 +90,6 @@ local.properties
  
 *.iml
 *.ipr
-*.iws
 .idea/
  
 ## .gitignore for linux
@@ -132,3 +131,5 @@ Icon
 ## hack for graddle wrapper
 !wrapper/*.jar
 !**/wrapper/*.jar
+/SpringMybatis/target/
+/SpringMybatis/src/main/resources/jdbc.properties
