@@ -16,17 +16,22 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
 
+  <!--配置mvc需要加载的配置文件
+  spring-dao.xml,spring-service.xml,spring-web.xml
+        Mybatis - > spring -> springmvc
+-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/spring-*.xml</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
   <servlet>
     <servlet-name>mvc-dispatcher</servlet-name> <!--mvc调度器-->
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <!--配置mvc需要加载的配置文件
-      spring-dao.xml,spring-service.xml,spring-web.xml
-            Mybatis - > spring -> springmvc
-    -->
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring/spring-*.xml</param-value>
-    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>mvc-dispatcher</servlet-name>
