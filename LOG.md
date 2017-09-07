@@ -2,7 +2,7 @@
 #### [参考文章](http://josephpei.github.io/2014/08/25/Spring-MVC-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06-SLF4J-Logback-%E6%97%A5%E5%BF%97/)
 > ### 说明
 * ##### SLF4J提供了一组抽象接口，在部署应用时后端可以选择不同的日志框架，而无需更改已有代码。
-* ##### Logback 是项目 Log4j 的后继。它由三个模块组成：==logback-core, logback-classic, logback-access==。其中 logback-core 是基础模块。logback-classic 是 log4j 的改良版，是 slf4j api 的原生实现，可以方便地更换成其它日志框架。logback-access 模块与 Servlet 容器集成提供Http-access 日志的功能。
+* ##### Logback 是项目 Log4j 的后继。它由三个模块组成：logback-core, logback-classic, logback-access。其中 logback-core 是基础模块。logback-classic 是 log4j 的改良版，是 slf4j api 的原生实现，可以方便地更换成其它日志框架。logback-access 模块与 Servlet 容器集成提供Http-access 日志的功能。
 * ##### Spring 默认使用 Jakarta Commons Logging，但可以切换成其它日志框架。
 ---
 > ### 操作步骤
