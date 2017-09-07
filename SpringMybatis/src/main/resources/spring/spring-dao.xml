@@ -6,7 +6,16 @@
 
     <!--配置数据库相关参数，使用数据库配置文件解耦-->
     <!--使用该标签spring会为我们建立一个Ben:propertyPlaceholderConfigurer,这个bean是实现了BeanFactoryPostProcessor这个接口，这个BeanFactoryPostProcessor会遍历容器中所有的bean 定义，并处理定义中的属性值、class name、方法名等等：-->
-    <context:property-placeholder location="classpath:jdbc.properties" />
+    <!--<context:property-placeholder location="classpath:jdbc.properties" />-->
+    <!--两种加载配置文件方式，上面是加载一个配置文件，下面是加载多个配置文件-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <!--针对druid数据库连接池进行配置-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -64,6 +73,37 @@
         <property name="typeAliasesPackage" value="com.ws.vo" />
         <!--扫描sql配置文件：mapper需要的xml文件-->
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
+    </bean>
+
+    <!--配置redis部分-->
+    <!--配置jedis连接池-->
+    <bean id="redisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="maxTotal" value="${redis.maxTotal}" />
+    </bean>
+
+    <!--配置ConnectionFactory JedisConnectionFactory-->
+    <bean id="redisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}" />
+        <property name="port" value="${redis.port}" />
+        <property name="password" value="${redis.password}" />
+        <property name="poolConfig" ref="redisPoolConfig" />
+    </bean>
+
+    <!--配置redisTemplate-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="redisConnFactory" />
+    </bean>
+
+    <!--cache配置,这里采用的时自带的rediscachemanager,也可以采用自定义的cachemanager-->
+    <!--在想要缓存的方法上使用注解@Cachenable或者@CacheEvict-->
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg ref="redisTemplate" />
+    </bean>
+
+    <!--redisutil-->
+    <bean id="redisUtil" class="com.ws.utils.RedisUtil">
+        <property name="redisTemplate" ref="redisTemplate" />
     </bean>
 
     <!--配置扫描Dao接口包，实现动态Dao接口，注入到spring容器中-->

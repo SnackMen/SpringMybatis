@@ -133,3 +133,4 @@ Icon
 !**/wrapper/*.jar
 /SpringMybatis/target/
 /SpringMybatis/src/main/resources/jdbc.properties
+/SpringMybatis/src/main/resources/redis.properties
