@@ -3,6 +3,7 @@ package com.ws.service;
 import com.sun.tools.javac.util.List;
 import com.ws.vo.User;
 
+
 import java.io.Serializable;
 
 public interface UserService extends BaseService<User> {

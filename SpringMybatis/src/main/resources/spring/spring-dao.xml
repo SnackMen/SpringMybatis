@@ -2,7 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+
+    <!--启用缓存注解功能，必须的，否则在代码中使用注解不会生效，另外该注解一定要声明在spring配置文件中才会生效-->
+    <!--可以想象，如果想针对jdbc使用注解方式，是否也可以在配置文件中启用其注解功能-->
+    <cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
 
     <!--配置数据库相关参数，使用数据库配置文件解耦-->
     <!--使用该标签spring会为我们建立一个Ben:propertyPlaceholderConfigurer,这个bean是实现了BeanFactoryPostProcessor这个接口，这个BeanFactoryPostProcessor会遍历容器中所有的bean 定义，并处理定义中的属性值、class name、方法名等等：-->
@@ -75,6 +81,8 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
     </bean>
 
+
+
     <!--配置redis部分-->
     <!--配置jedis连接池-->
     <bean id="redisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -91,7 +99,7 @@
     </bean>
 
     <!--配置redisTemplate-->
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="redisConnFactory" />
     </bean>
 
@@ -99,12 +107,16 @@
     <!--在想要缓存的方法上使用注解@Cachenable或者@CacheEvict-->
     <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
         <constructor-arg ref="redisTemplate" />
+        <!--是否事务提交，如果事务回滚，缓存也回滚，默认false-->
+        <property name="transactionAware" value="true" />
+        <!--默认缓存有效期1d 3600*24-->
+        <property name="defaultExpiration" value="86400" />
     </bean>
 
-    <!--redisutil-->
-    <bean id="redisUtil" class="com.ws.utils.RedisUtil">
-        <property name="redisTemplate" ref="redisTemplate" />
-    </bean>
+    <!--redisutil使用自定义的cachemanager时例子-->
+    <!--<bean id="redisUtil" class="com.ws.utils.RedisUtil">-->
+        <!--<property name="redisTemplate" ref="redisTemplate" />-->
+    <!--</bean>-->
 
     <!--配置扫描Dao接口包，实现动态Dao接口，注入到spring容器中-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

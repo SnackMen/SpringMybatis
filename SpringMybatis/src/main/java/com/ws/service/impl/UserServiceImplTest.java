@@ -48,4 +48,11 @@ public class UserServiceImplTest {
         }
     }
 
+    @Test
+    public void getUser() throws Exception {
+        User user = userService.findOneById("13121362");
+        System.out.println(user.getAge());
+        System.out.println(user.getSex());
+    }
+
 }

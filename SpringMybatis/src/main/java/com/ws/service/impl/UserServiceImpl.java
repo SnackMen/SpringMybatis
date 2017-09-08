@@ -7,6 +7,7 @@ import com.ws.service.UserService;
 import com.ws.utils.StringUtils;
 import com.ws.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -65,8 +66,10 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Cacheable(value = "testId", key = "'id_'+#Id")
     public User findOneById(Serializable Id) throws Exception {
-        return null;
+        System.out.println("serviceImpl findOneById");
+        return userDao.findOneById(Id);
     }
 
     public List<User> findAll() throws Exception {
