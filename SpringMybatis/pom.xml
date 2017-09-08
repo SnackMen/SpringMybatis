@@ -8,12 +8,6 @@
   <name>springmybatis Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
     <!--&lt;!&ndash;log4j2支持&ndash;&gt;-->
     <!--<dependency>-->
     <!--<groupId>org.apache.logging.log4j</groupId>-->
@@ -203,8 +197,11 @@
       <artifactId>junit</artifactId>
       <version>4.12</version>
     </dependency>
-
-
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>1.6.1.RELEASE</version>
+    </dependency>
   </dependencies>
 
   <!--配置可变版本号，当需要针对某个依赖升级时，可以直接在这里改，在上面使用版本号时，需要使用固定格式，如${包名.version}-->
