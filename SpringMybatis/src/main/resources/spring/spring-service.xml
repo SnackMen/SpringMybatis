@@ -23,5 +23,8 @@
     <!--配置基于注解的声明式事务-->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+    <!--配置成CGLIB代理-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />-->
+
 
 </beans>

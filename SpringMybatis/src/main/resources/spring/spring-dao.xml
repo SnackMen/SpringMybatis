@@ -8,7 +8,7 @@
 
     <!--启用缓存注解功能，必须的，否则在代码中使用注解不会生效，另外该注解一定要声明在spring配置文件中才会生效-->
     <!--可以想象，如果想针对jdbc使用注解方式，是否也可以在配置文件中启用其注解功能-->
-    <cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
+    <cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true" />
 
     <!--配置数据库相关参数，使用数据库配置文件解耦-->
     <!--使用该标签spring会为我们建立一个Ben:propertyPlaceholderConfigurer,这个bean是实现了BeanFactoryPostProcessor这个接口，这个BeanFactoryPostProcessor会遍历容器中所有的bean 定义，并处理定义中的属性值、class name、方法名等等：-->

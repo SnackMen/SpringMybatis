@@ -1,6 +1,7 @@
 package com.ws.service.impl;
 
 import com.ws.exception.*;
+import com.ws.service.UserService;
 import com.ws.vo.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,8 @@ public class UserServiceImplTest {
         }catch (UserAireadyExistException e){
             e.printStackTrace();
         }catch (OtherThingsException e){
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
