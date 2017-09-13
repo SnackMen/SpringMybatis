@@ -136,3 +136,4 @@ Icon
 /SpringMybatis/src/main/resources/redis.properties
 /DynamicProxy/target/
 /DynamicProxy/DynamicProxy.iml
+/SpringMybatis/log/
