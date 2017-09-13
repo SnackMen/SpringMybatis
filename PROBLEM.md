@@ -34,3 +34,13 @@ public class UserServiceImpl implements UserService {}
 ##### [Spring：AOP（JDK动态代理与CGLIB代理）](https://github.com/pzxwhc/MineKnowContainer/issues/28)
 ##### [记一个Spring动态代理的坑](http://blog.onlycatch.com/post/%E5%AF%84%E4%B8%80%E4%B8%AASpring%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%9A%84%E5%9D%91)
 ##### [Part V. 数据访问-17. 事务管理-17.5 声明式事务管理](http://blog.csdn.net/lovesomnus/article/details/73733989)
+***
+#### 2017/09/12更新
+##### 今天在配置mybatis时遇到了一个问题，当我将值为0的BigDecimal类型数据传值到SQL中作为判断条件时，该条件没有做到应有的拦截作用，相关配置如下：
+```
+<if test="comm ==null and comm==''"> <![CDATA[and COMM = #{comm}]]></if> 
+```
+##### 之后查阅相关资料发现，当传入的值为BigDecimal或者Integer等类型的时候，如果mybatis中判断了是否为空字符串，那么mybatis会将其看作字符串处理，而不再是简单的数字，因此如果是数字只需要判断是否为空即
+```
+<if test="comm ==null"> <![CDATA[and COMM = #{comm}]]></if> 
+```
